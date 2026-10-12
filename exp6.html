@@ -1,0 +1,351 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sweet Crumbs - Cake Shop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#fff8f5;color:#49332f}
+header{background:#713f36;color:white;padding:20px 7%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+header h1{margin:0;color:#ffd6a5}
+nav{background:#ffe8df;padding:15px;text-align:center}
+nav a{margin:10px;color:#713f36;text-decoration:none;font-weight:bold}
+.hero{text-align:center;padding:45px 15px;background:#f8d9ce}
+.hero h2{font-size:32px}
+.container{max-width:1100px;margin:25px auto;padding:0 16px}
+.card{background:white;padding:20px;border-radius:12px;margin-bottom:22px;box-shadow:0 3px 12px #eadbd5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.cake{border:1px solid #f0d9d0;border-radius:10px;padding:15px;text-align:center}
+.cake img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+input,select,textarea,button{width:100%;padding:11px;margin:7px 0;border:1px solid #ddc9c2;border-radius:6px}
+button{background:#9c5548;color:white;border:0;cursor:pointer;font-weight:bold}
+button:hover{background:#713f36}
+.price{color:#b34d36;font-size:20px;font-weight:bold}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #eadbd5;padding:8px;text-align:left}
+th{background:#713f36;color:white}
+footer{background:#713f36;color:white;text-align:center;padding:20px}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🍰 Sweet Crumbs</h1>
+<p>Fresh Cakes, Happy Moments</p>
+</header>
+
+<nav>
+<a href="#cakes">Cakes</a>
+<a href="#account">Register/Login</a>
+<a href="#cart">My Cart</a>
+<a href="#orders">My Orders</a>
+<a href="#admin">Admin</a>
+</nav>
+
+<div class="hero">
+<h2>A Little Sweetness in Every Bite</h2>
+<p>Order your favourite cake for every special occasion.</p>
+</div>
+
+<div class="container">
+
+<section class="card" id="cakes">
+<h2>Explore Our Cakes</h2>
+<div class="grid">
+<select id="category">
+<option value="All">All Categories</option>
+<option>Birthday</option>
+<option>Chocolate</option>
+<option>Wedding</option>
+<option>Fruit</option>
+</select>
+<select id="priceFilter">
+<option value="all">All Prices</option>
+<option value="500">Below ₹500</option>
+<option value="1000">₹500 - ₹1000</option>
+<option value="1001">Above ₹1000</option>
+</select>
+<input id="searchCake" placeholder="Search cake by name">
+</div>
+<div class="grid" id="cakeList"></div>
+</section>
+
+<section class="card" id="account">
+<h2>Create Account</h2>
+<form id="registerForm">
+<input id="name" placeholder="Full Name" required>
+<input id="email" type="email" placeholder="Email Address" required>
+<input id="password" type="password" placeholder="Password" required>
+<button>Register</button>
+</form>
+
+<h3>Customer Login</h3>
+<form id="loginForm">
+<input id="loginEmail" type="email" placeholder="Email Address" required>
+<input id="loginPassword" type="password" placeholder="Password" required>
+<button>Login</button>
+</form>
+<button id="logout">Logout</button>
+<p id="userStatus">Please login to place an order.</p>
+</section>
+
+<section class="card" id="cart">
+<h2>Shopping Cart</h2>
+<div id="cartList"></div>
+<p id="cartTotal">Total: ₹0</p>
+</section>
+
+<section class="card" id="checkout">
+<h2>Delivery & Checkout</h2>
+<form id="orderForm">
+<input id="customerName" placeholder="Customer Name" required>
+<input id="customerPhone" type="tel" placeholder="Phone Number" required>
+<textarea id="address" placeholder="Delivery Address" required></textarea>
+<input id="city" placeholder="City" required>
+<input id="deliveryDate" type="date" required>
+<input id="cakeMessage" placeholder="Message on Cake">
+<select id="size">
+<option value="1">Small Cake</option>
+<option value="1.5">Medium Cake</option>
+<option value="2">Large Cake</option>
+</select>
+<select id="payment">
+<option>Cash on Delivery</option>
+<option>UPI Demo</option>
+<option>Card Demo</option>
+</select>
+<button>Place Order</button>
+</form>
+<p id="orderMessage"></p>
+</section>
+
+<section class="card" id="orders">
+<h2>My Orders & Shipping Status</h2>
+<div id="orderList"></div>
+</section>
+
+<section class="card" id="admin">
+<h2>Admin Panel</h2>
+<form id="adminLogin">
+<input id="adminPassword" type="password" placeholder="Admin Password" required>
+<button>Admin Login</button>
+</form>
+
+<div id="adminPanel" hidden>
+<h3>Add Cake</h3>
+<form id="addCakeForm">
+<input id="cakeName" placeholder="Cake Name" required>
+<select id="cakeCategory">
+<option>Birthday</option>
+<option>Chocolate</option>
+<option>Wedding</option>
+<option>Fruit</option>
+</select>
+<input id="cakePrice" type="number" min="1" placeholder="Price" required>
+<input id="cakeImage" placeholder="Image URL" required>
+<textarea id="cakeDescription" placeholder="Cake Description" required></textarea>
+<button>Add Cake</button>
+</form>
+
+<h3>Manage Cakes</h3>
+<div id="adminCakeList"></div>
+
+<h3>Manage Orders</h3>
+<div id="adminOrderList"></div>
+
+<h3>Reports</h3>
+<div id="report"></div>
+</div>
+</section>
+
+</div>
+
+<footer>
+<p>Sweet Crumbs Cake Shop | Contact: sweetcrumbs@example.com</p>
+</footer>
+
+<script>
+let cakes=JSON.parse(localStorage.getItem("cakeProducts")||"null")||[
+{id:1,name:"Chocolate Cake",category:"Chocolate",price:450,image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500",description:"Rich chocolate cake with creamy frosting."},
+{id:2,name:"Birthday Cake",category:"Birthday",price:700,image:"https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?w=500",description:"Colourful cake for birthday celebrations."},
+{id:3,name:"Fruit Cake",category:"Fruit",price:550,image:"https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500",description:"Fresh fruit cake with soft cream."},
+{id:4,name:"Wedding Cake",category:"Wedding",price:1500,image:"https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=500",description:"Elegant cake for special occasions."}
+];
+
+let users=JSON.parse(localStorage.getItem("cakeUsers")||"[]");
+let orders=JSON.parse(localStorage.getItem("cakeOrders")||"[]");
+let cart=JSON.parse(localStorage.getItem("cakeCart")||"[]");
+let currentUser=null;
+let isAdmin=false;
+
+function save(){
+localStorage.setItem("cakeProducts",JSON.stringify(cakes));
+localStorage.setItem("cakeUsers",JSON.stringify(users));
+localStorage.setItem("cakeOrders",JSON.stringify(orders));
+localStorage.setItem("cakeCart",JSON.stringify(cart));
+}
+
+function showCakes(){
+let cat=category.value;
+let p=priceFilter.value;
+let s=searchCake.value.toLowerCase();
+let list=cakes.filter(c=>(cat==="All"||c.category===cat)&&c.name.toLowerCase().includes(s));
+if(p==="500")list=list.filter(c=>c.price<500);
+if(p==="1000")list=list.filter(c=>c.price>=500&&c.price<=1000);
+if(p==="1001")list=list.filter(c=>c.price>1000);
+cakeList.innerHTML=list.map(c=>`<div class="cake"><img src="${c.image}" alt="${c.name}"><h3>${c.name}</h3><p>${c.description}</p><p class="price">₹${c.price}</p><button onclick="addToCart(${c.id})">Add to Cart</button></div>`).join("")||"No cakes found.";
+}
+
+category.addEventListener("change",showCakes);
+priceFilter.addEventListener("change",showCakes);
+searchCake.addEventListener("input",showCakes);
+
+registerForm.addEventListener("submit",e=>{
+e.preventDefault();
+if(users.some(u=>u.email===email.value)){alert("Email already registered");return}
+users.push({name:name.value,email:email.value,password:password.value});
+save();
+alert("Registration successful");
+registerForm.reset();
+});
+
+loginForm.addEventListener("submit",e=>{
+e.preventDefault();
+let u=users.find(u=>u.email===loginEmail.value&&u.password===loginPassword.value);
+if(!u){alert("Invalid login details");return}
+currentUser=u;
+userStatus.textContent="Logged in as "+u.name;
+customerName.value=u.name;
+showOrders();
+});
+
+logout.addEventListener("click",()=>{
+currentUser=null;
+userStatus.textContent="You are logged out.";
+showOrders();
+});
+
+function addToCart(id){
+let c=cakes.find(c=>c.id===id);
+let item=cart.find(i=>i.id===id);
+if(item)item.quantity++;
+else cart.push({id:c.id,quantity:1});
+save();
+showCart();
+}
+
+function showCart(){
+cartList.innerHTML=cart.map(i=>{
+let c=cakes.find(c=>c.id===i.id);
+return c?`<p>${c.name} × ${i.quantity} — ₹${c.price*i.quantity} <button onclick="removeItem(${i.id})">Remove</button></p>`:"";
+}).join("")||"Your cart is empty.";
+let total=cart.reduce((sum,i)=>sum+(cakes.find(c=>c.id===i.id)?.price||0)*i.quantity,0);
+cartTotal.textContent="Total: ₹"+total;
+}
+
+function removeItem(id){
+cart=cart.filter(i=>i.id!==id);
+save();
+showCart();
+}
+
+orderForm.addEventListener("submit",e=>{
+e.preventDefault();
+if(!currentUser){alert("Please login before ordering");return}
+if(cart.length===0){alert("Please add a cake to your cart");return}
+if(new Date(deliveryDate.value)<new Date(new Date().toDateString())){alert("Choose a valid delivery date");return}
+let items=cart.map(i=>{
+let c=cakes.find(c=>c.id===i.id);
+return {name:c.name,price:c.price,quantity:i.quantity};
+});
+let total=items.reduce((sum,i)=>sum+i.price*i.quantity,0)*Number(size.value);
+let order={
+id:"CAKE"+Math.floor(100000+Math.random()*900000),
+email:currentUser.email,
+name:customerName.value,
+phone:customerPhone.value,
+address:address.value,
+city:city.value,
+date:deliveryDate.value,
+message:cakeMessage.value,
+size:size.options[size.selectedIndex].text,
+payment:payment.value,
+items:items,
+total:total,
+status:"Order Received"
+};
+orders.push(order);
+cart=[];
+save();
+showCart();
+showOrders();
+orderMessage.textContent="Order placed successfully! Order ID: "+order.id+" | Total: ₹"+total;
+orderForm.reset();
+});
+
+function showOrders(){
+let list=orders.filter(o=>isAdmin||(currentUser&&o.email===currentUser.email));
+orderList.innerHTML=list.map(o=>`<div class="cake"><h3>Order ${o.id}</h3><p>${o.items.map(i=>i.name+" × "+i.quantity).join(", ")}</p><p>Delivery: ${o.date}</p><p>Address: ${o.address}, ${o.city}</p><p>Total: ₹${o.total}</p><p>Status: <b>${o.status}</b></p></div>`).join("")||"No orders found.";
+if(isAdmin)showAdminOrders();
+}
+
+adminLogin.addEventListener("submit",e=>{
+e.preventDefault();
+if(adminPassword.value!=="cake123"){alert("Invalid admin password");return}
+isAdmin=true;
+adminPanel.hidden=false;
+showAdminCakes();
+showOrders();
+showReport();
+alert("Admin login successful");
+});
+
+addCakeForm.addEventListener("submit",e=>{
+e.preventDefault();
+cakes.push({id:Date.now(),name:cakeName.value,category:cakeCategory.value,price:Number(cakePrice.value),image:cakeImage.value,description:cakeDescription.value});
+save();
+showCakes();
+showAdminCakes();
+addCakeForm.reset();
+alert("Cake added successfully");
+});
+
+function showAdminCakes(){
+adminCakeList.innerHTML=cakes.map(c=>`<div class="cake"><h3>${c.name}</h3><p>₹${c.price} | ${c.category}</p><button onclick="deleteCake(${c.id})">Delete Cake</button></div>`).join("");
+}
+
+function deleteCake(id){
+cakes=cakes.filter(c=>c.id!==id);
+cart=cart.filter(i=>i.id!==id);
+save();
+showCakes();
+showCart();
+showAdminCakes();
+}
+
+function showAdminOrders(){
+adminOrderList.innerHTML=orders.map(o=>`<div class="cake"><p>${o.id} | ${o.name} | ₹${o.total}</p><p>Address: ${o.address}, ${o.city}</p><select id="status${o.id}"><option>${o.status}</option><option>Order Received</option><option>Preparing</option><option>Out for Delivery</option><option>Delivered</option><option>Cancelled</option></select><button onclick="updateOrder('${o.id}')">Update Status</button></div>`).join("")||"No orders yet.";
+}
+
+function updateOrder(id){
+let o=orders.find(o=>o.id===id);
+o.status=document.getElementById("status"+id).value;
+save();
+showOrders();
+showReport();
+alert("Order status updated");
+}
+
+function showReport(){
+report.innerHTML="Total Cakes: "+cakes.length+"<br>Total Orders: "+orders.length+"<br>Delivered Orders: "+orders.filter(o=>o.status==="Delivered").length+"<br>Total Sales: ₹"+orders.filter(o=>o.status!=="Cancelled").reduce((sum,o)=>sum+o.total,0);
+}
+
+showCakes();
+showCart();
+showOrders();
+</script>
+
+</body>
+</html>
+```
